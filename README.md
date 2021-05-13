@@ -189,5 +189,6 @@ PCA(InputArray data, InputArray mean, int flags, int maxComponents = 0);
 # (8)To Do Next
 - Adjust the weight of these 40 images to simulate different faces
 - Improve the accuracy of PCM and  take it into application
+- Take these dimensionality reduction datas into netural networks to do classification
 
 
