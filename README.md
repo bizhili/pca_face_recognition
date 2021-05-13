@@ -3,11 +3,16 @@ Pca face recognition with c++ coding;Changzhou University  junior spring semeste
 # (0)Math Theory of PCA Algorithm
 - Problem to solve:
   We have a set of datas(with the same dimension) to describe a kind of feature，but many features of these datas are kind of redundant.Try to find a way to readuce the dimension of the datas and keep the most obviously features.
-- Solve:
-
 Assump we have a set of datas:
 <img src="https://render.githubusercontent.com/render/math?math=D_{dxn}">
 (the dimension of data is d,the number of datas is n,d and n may be very huge)
+
+-solve:
+View on wiki,following [Link](https://blog.csdn.net/libizhide/article/details/108417216?spm=1001.2014.3001.5501)
+- noting:
+
+**(1)However the rank of the covariance matrix is limited by the number of training examples: if there are N training examples, there will be at most N − 1 eigenvectors with non-zero eigenvalues.**
+
 
 # (1)Experiment Environment
 - Win10 X64
@@ -26,7 +31,11 @@ Assump we have a set of datas:
 ## Traing
 - Read training images 
 - Transform training image matrixs to row vectors data DS
+
+<p align="center">
 <img src="https://render.githubusercontent.com/render/math?math=Ds_{dxn}">
+</p>
+
 - perform PCA function to get "MEAN", "EIGENVECTORS" and "EIGENVALUES"
 
 
@@ -67,10 +76,44 @@ PCA(InputArray data, InputArray mean, int flags, int maxComponents = 0);
 
 ```
 - Save mean vector
+
+<p align="center">
 <img src="https://render.githubusercontent.com/render/math?math=M_{dx1}">
+</p>
+
 - Save eigenvectors matrix
+
+<p align="center">
 <img src="https://render.githubusercontent.com/render/math?math=E_{lxd}">
-- All done
+</p>
+
+- At the same time,we can extract 40 eigenfaces from each row of eigenvectors matrix.We can adjust the weight of these 40 images to simulate every face in theory.
+
+<p align="center">
+<img src="https://github.com/bizhili/pca_face_recognition/blob/main/image/face_0.bmp">
+</p>
+
+<p align="center">
+<img src="https://github.com/bizhili/pca_face_recognition/blob/main/image/face_1.bmp">
+</p>
+
+<p align="center">
+<img src="https://github.com/bizhili/pca_face_recognition/blob/main/image/face_2.bmp">
+</p>
+
+<p align="center">
+<img src="https://github.com/bizhili/pca_face_recognition/blob/main/image/face_3.bmp">
+</p>
+
+<p align="center">
+<img src="https://github.com/bizhili/pca_face_recognition/blob/main/image/face_4.bmp">
+</p>
+
+- Finally, we get an average face
+
+<p align="center">
+<img src="https://github.com/bizhili/pca_face_recognition/blob/main/image/face_avr.bmp">
+</p>
 
 
 ## Testing
@@ -78,27 +121,73 @@ PCA(InputArray data, InputArray mean, int flags, int maxComponents = 0);
 - Read Testing images
 - Transform  labeled sample face image matrixs to row vectors data DS
 
+<p align="center">
 <img src="https://render.githubusercontent.com/render/math?math=DS_{dxk}">
+</p>  
+
 - Transform testing image matrixs to row vectors data DT
+
+<p align="center">
 <img src="https://render.githubusercontent.com/render/math?math=DT_{dxm}">
+</p>
+  
 - Read mean vector
+
+<p align="center">
 <img src="https://render.githubusercontent.com/render/math?math=M_{dx1}"> 
+</p>
+
 - For each row of data DS,subtracting mean vector to normalize 
 - For each row of data DL,subtracting mean vector to normalize 
 - Read eigenvectors matrix
+
+<p align="center">
 <img src="https://render.githubusercontent.com/render/math?math=E_{lxd}">
+</p>
+
 - Caculate the eigen of sample face datas row vectors DSe
+
+<p align="center">
 <img src="https://render.githubusercontent.com/render/math?math=DSe_{lxk}=E_{lxd}*DS_{dxk}">
+</p>
+
 - For each row in testing image row vectors data DT,caculate the eigen
+
+<p align="center">
 <img src="https://render.githubusercontent.com/render/math?math=de_{lx1}=E_{lxd}*d_{dx1}">
+</p>
+
 - Find the nearest Euclidean distance of de and row in DSe
 
 # (4)Benchmarking with different Eigenvalues Quantity
+- The following image demonstrates the accuracy of choosing different Eigenvalues Quantity.Obviously we gain more accurancy by adding more Eigenvalues,but the improvement is slower along with the adding Eigenvalues.
 
-
+<p align="center">
+  <img src="https://github.com/bizhili/pca_face_recognition/blob/main/image/full_eigen_nums.png" width="800" height="480">
+</p>
 
 # (5)Boosting-1,Use KNN
 
-# (6)Boosting-2,Adjust Test/Train Sample Ratio
+<p align="center">
+  <img src="https://github.com/bizhili/pca_face_recognition/blob/main/image/full_k_value.png" width="800" height="480">
+</p>
+
+
+# (6)Boosting-2,Adjust Sample/Test images Ratio
+- The following picture demonstrates the accuracy of improving  Sample/Test images Ratio.
+
+<p align="center">
+  <img src="https://github.com/bizhili/pca_face_recognition/blob/main/image/full_people_nums.png" width="800" height="480">
+</p>
+
 
 # (7)Summary and To Do Next
+- The more different faces are taken into training a eigenVectors matrix,the more accuracy we gain
+- The more different faces are taken as sample faces,the more accuracy we gain
+- As we add one faces we don't need to retrain the eigenVectors matrix
+- 
+# (8)To Do Next
+- Adjust the weight of these 40 images to simulate different faces
+- Improve the accuracy of PCM and  take it into application
+
+
