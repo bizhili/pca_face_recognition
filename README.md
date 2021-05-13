@@ -185,7 +185,6 @@ PCA(InputArray data, InputArray mean, int flags, int maxComponents = 0);
 - The more different faces are taken into training a eigenVectors matrix,the more accuracy we gain
 - The more different faces are taken as sample faces,the more accuracy we gain
 - As we add one faces we don't need to retrain the eigenVectors matrix
-- 
 # (8)To Do Next
 - Adjust the weight of these 40 images to simulate different faces
 - Improve the accuracy of PCM and  take it into application
